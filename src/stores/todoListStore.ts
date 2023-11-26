@@ -2,6 +2,9 @@ import type { Todo } from "@/interfaces/ITodo";
 import { defineStore } from "pinia";
 import { useNotification } from "./notificationStore";
 
+const API_URL = 'https://api-mock-json-server-iw2inklqr-joatansampaio.vercel.app/todos/';
+//http://localhost:3000/todos ---> Locally
+
 export const useTodoList = defineStore('todoList', {
     state: () => {
 
@@ -15,7 +18,7 @@ export const useTodoList = defineStore('todoList', {
     actions: {
         async loadTodos() {
             try {
-                const response = await fetch("http://localhost:3000/todos");
+                const response = await fetch(API_URL);
                 const todos: Todo[] = await response.json();
                 this.onGoingTodos = todos.filter(todo => !todo.isCompleted);
                 this.completedTodos = todos.filter(todo => todo.isCompleted);
@@ -25,7 +28,7 @@ export const useTodoList = defineStore('todoList', {
 
         },
         async addTodo(inputValue: string) {
-            await fetch("http://localhost:3000/todos", {
+            await fetch("API_URL", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -46,7 +49,7 @@ export const useTodoList = defineStore('todoList', {
 
         },
         async completeTodo(todo: Todo) {
-            await fetch(`http://localhost:3000/todos/${todo.id}`, {
+            await fetch(`${API_URL}${todo.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -71,7 +74,7 @@ export const useTodoList = defineStore('todoList', {
             });
         },
         async deleteTodo(todo: Todo) {
-            await fetch(`http://localhost:3000/todos/${todo.id}`, {
+            await fetch(`${API_URL}${todo.id}`, {
                 method: "DELETE",
             }).then((response) => {
                 if (response.ok) {
