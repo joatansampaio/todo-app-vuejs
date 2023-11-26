@@ -1,0 +1,9 @@
+:root {
+    --dark-gray: #2f2f2f; 
+    --light-gray: #393939; 
+    --accent-color: #e74c3c; 
+    --light-font: #f2f2f2; 
+  }
+  html {
+    background-color: var(--dark-gray);
+  }
